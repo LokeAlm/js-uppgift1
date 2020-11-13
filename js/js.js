@@ -1,23 +1,30 @@
 /************** DOM variables ************/
+
 const inputElems = document.querySelectorAll('.input'); //array-like object med alla inputs.
 const submitBtn = document.querySelector('.btn');
 const loader = document.querySelector('.loading-container');
 
-disableBtn(true); // disable submit-button initially
+
+/***** disable button and hide loader: */
+
+disableBtn(true); 
 loader.style.display = 'none';
 
+
 /************Event listeners******* */
+
 submitBtn.addEventListener('click', loadCard);
 for(let i=0; i<inputElems.length; i++){
-        inputElems[i].addEventListener('focus', function(e){
-            e.target.classList.add('focus');
-        });
-        inputElems[i].addEventListener('blur', checkInput); 
+    inputElems[i].addEventListener('focus', function(e){
+        e.target.classList.add('focus');
+    });
+    inputElems[i].addEventListener('blur', checkInput); 
 } 
 
 
 /******************** Functions****************** */
 
+// check input fields and add classes to style them accordingly
 function checkInput(e){
     if(e.target.classList.contains('focus')){
         e.target.classList.remove('focus');
@@ -33,7 +40,6 @@ function checkInput(e){
         }
         e.target.classList.add('correct');
     }
-
     if(inputElems[0].value != '' && inputElems[1].value != '' && inputElems[2].value != ''){
         disableBtn(false);
     } else { 
@@ -41,7 +47,7 @@ function checkInput(e){
     }
 }
 
-/* Enable/disable submit-button */
+// Enable/disable submit-button */
 function disableBtn(isTrue){
     if(isTrue){
         submitBtn.disabled = true;
@@ -86,6 +92,5 @@ function createCard(){
         inputElems[i].classList.remove('correct');
         inputElems[i].value = '';
     }
-
 }
 
