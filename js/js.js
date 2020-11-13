@@ -1,10 +1,10 @@
 /************** DOM variables ************/
 const inputElems = document.querySelectorAll('.input'); //array-like object med alla inputs.
 const submitBtn = document.querySelector('.btn');
-
+const loader = document.querySelector('.loading-container');
 
 disableBtn(true); // disable submit-button initially
-
+loader.style.display = 'none';
 
 /************Event listeners******* */
 submitBtn.addEventListener('click', loadCard);
@@ -50,19 +50,22 @@ function disableBtn(isTrue){
     }
 }
 
-
-function loadCard(){
-    const loader = document.querySelector('.loading-container');
-    
+//show loader for 2s, then call createCard()
+function loadCard(e){
+    e.preventDefault();
+    loader.style.display = 'flex';
+    setTimeout(createCard, 2000);
 }
 
 function createCard(){
+    loader.style.display = 'none'; //hide loader again
 
     const cardContainer = document.querySelector('.card-container');
     let name = document.querySelector('.name-input');
     let course = document.querySelector('.course-input');
     let author = document.querySelector('.author-input'); 
 
+    
     let randomNr = Math.floor(Math.random() * 8); /* get int 0-7 (8 is excluded) */
 
     const code = `    
@@ -79,12 +82,10 @@ function createCard(){
 
     cardContainer.innerHTML += code;
 
-    name.value = '';
-    course.value = '';
-    author.value = '';  
-
-    for(let i=0; i < inputElems; i++){
+    for(let i=0; i < inputElems.length; i++){
         inputElems[i].classList.remove('correct');
-    }  
+        inputElems[i].value = '';
+    }
+
 }
 

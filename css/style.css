@@ -146,7 +146,7 @@ body {
 
 
 .loading-container {
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     height: 7rem;
